@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin\Project;
 
 use App\Http\Controllers\Controller;
+use App\Http\Library\Files\FileHandler;
 use App\Http\Library\Response\Status;
 use App\Http\Library\Tokenize\Token;
 use App\Http\Requests\Admin\Project\CreateProjectRequest;
@@ -23,8 +24,16 @@ class ProjectAdminController extends Controller
     function createProject(CreateProjectRequest $request){
         try {
             $unique_id = Token::unique('projects');
-            $validated = $request->validted();
-            Project::create([...$validated, 'unique_id' => $unique_id]);
+
+            $images = $request->hasFile('images') ? FileHandler::handleFiles($request->file('images')) : [];
+
+            $validated = $request->validated();
+
+            Project::create(array_merge($validated, [
+                'unique_id' => $unique_id,
+                'images' => serialize($images)
+                ]
+            ));
         } catch (Exception $e) {
             return Status::redirect('error', $e->getMessage());
         }

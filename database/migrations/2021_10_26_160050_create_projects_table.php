@@ -18,7 +18,7 @@ class CreateProjectsTable extends Migration
             $table->string('unique_id')->unique();
             $table->string('title')->unique();
             $table->string('slug');
-            $table->string('content');
+            $table->longText('content');
             $table->string('url');
             $table->string('date');
             $table->string('status');

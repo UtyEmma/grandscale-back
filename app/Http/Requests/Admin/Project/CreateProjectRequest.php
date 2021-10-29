@@ -28,7 +28,7 @@ class CreateProjectRequest extends FormRequest
             'content' => 'required|string|min:100',
             'category' => 'required|string',
             'client' => 'required|string',
-            'images.*' => 'required|images',
+            'images.*' => 'required|image',
             'url' => 'required|url',
             'date' => 'required|date'
         ];

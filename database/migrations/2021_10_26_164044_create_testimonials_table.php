@@ -20,7 +20,7 @@ class CreateTestimonialsTable extends Migration
             $table->string('fullname');
             $table->string('position');
             $table->string('avatar');
-            $table->string('content');
+            $table->text('content');
             $table->timestamps();
         });
     }
